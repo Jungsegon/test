@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.waterapi.mapper.FloodForecastMapper">
+    <insert id="insertFloodForecast" parameterType="com.example.demo.waterapi.vo.FloodForecastVo">
+        INSERT INTO flood_forecast (
+            anc_dt, anc_nm, fct_dt, fct_hgt, fct_sealvl, kind, no, obsnm,
+            prnt_dt, rfrnc2, rvr_nm, stt_cur_cng, stt_cur_dt, stt_cur_hgt,
+            stt_cur_sealvl, stt_fct_dt, stt_fct_hgt, stt_fct_sealvl,
+            stt_nm, wrn_ara_nm, wrn_rvr_nm
+        ) VALUES (
+                     #{ancDt}, #{ancNm}, #{fctDt}, #{fctHgt}, #{fctSealvl}, #{kind}, #{no}, #{obsnm},
+                     #{prntDt}, #{rfrnc2}, #{rvrNm}, #{sttCurCng}, #{sttCurDt}, #{sttCurHgt},
+                     #{sttCurSealvl}, #{sttFctDt}, #{sttFctHgt}, #{sttFctSealvl},
+                     #{sttNm}, #{wrnAraNm}, #{wrnRvrNm}
+                 )
+    </insert>
+</mapper>
+
