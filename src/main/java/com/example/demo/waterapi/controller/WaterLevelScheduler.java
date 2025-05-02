@@ -19,14 +19,14 @@ public class WaterLevelScheduler {
     private static final String HANGANG_CODE = "1018683";
     private static final String CHEONGDAM_CODE = "1018662";
 
-//    @Scheduled(cron = "0 * * * * *")  // 매 1분
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "0 * * * * *")  // 매 1분
+//    @Scheduled(cron = "*/30 * * * * *")
     public void insertLatest() {
         waterLevelService.fetchAndInsertLatest(HANGANG_CODE, "한강대교");
         waterLevelService.fetchAndInsertLatest(CHEONGDAM_CODE, "청담대교");
     }
 
-    @Scheduled(cron = "0 * *  * * *")  // 매 1시간
+    @Scheduled(cron = "0 0 * * * *")  // 매 1시간
     public void updateIfChanged() {
         waterLevelService.fetchAndUpdateFullDay(HANGANG_CODE, "한강대교");
         waterLevelService.fetchAndUpdateFullDay(CHEONGDAM_CODE, "청담대교");
