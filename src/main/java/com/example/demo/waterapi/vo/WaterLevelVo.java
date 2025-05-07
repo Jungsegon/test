@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 @ToString
 public class WaterLevelVo {
-    private Long id;        // id
     private String wlobscd;         // 관측소 코드 (예: 1018640)
     private String obsnm;           // 관측소 이름 (예: 한강대교)
     private String ymdhm;    // 관측 일시

@@ -12,11 +12,12 @@
 
     <insert id="insertWaterLevel" parameterType="com.example.demo.waterapi.vo.WaterLevelVo">
         INSERT INTO water_level_min (
-            id, wlobscd, obsnm, ymdhm, wl, fw, update_dt
+            wlobscd, obsnm, ymdhm, wl, fw
         ) VALUES (
-                     #{id}, #{wlobscd}, #{obsnm}, #{ymdhm}, #{wl}, #{fw}, NOW()
+                     #{wlobscd}, #{obsnm}, #{ymdhm}, #{wl}, #{fw}
                  )
     </insert>
+
 
     <update id="updateWaterLevel" parameterType="com.example.demo.waterapi.vo.WaterLevelVo">
         UPDATE water_level_min

@@ -56,12 +56,10 @@ public class WaterLevelService {
                     .build();
 
             if (waterLevelMapper.existsWaterLevel(vo) == 0) {
-                waterLevelMapper.updateSeq();
-                long id = waterLevelMapper.getLastSeq();
-                vo.setId(id);
                 waterLevelMapper.insertWaterLevel(vo);
-                log.info("수위 insert 완료 !!!!!!!!!!!!!!!!!!!");
+                log.info("---------------------------------------------수위 insert 완료---------");
             }
+
 
         } catch (Exception e) {
             log.error("1분 수위 INSERT 실패: {}", e.getMessage(), e);
@@ -106,7 +104,7 @@ public class WaterLevelService {
                             .fw(fw)
                             .build();
                     waterLevelMapper.updateWaterLevel(updateVo);
-                    log.info("수위 업데이트 완료 !!!!!!!!!!!!!!!!!!!");
+                    log.info("====================================수위 업데이트 완료 !!!!!!!!!!!!!!!!!!!");
                 }
             }
 

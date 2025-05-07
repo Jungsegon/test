@@ -13,8 +13,8 @@ public interface WaterLevelMapper {
     void insertWaterLevel(WaterLevelVo vo);
     void updateWaterLevel(WaterLevelVo vo);
     List<WaterLevelVo> findAll();
-    void updateSeq();
-    long getLastSeq();
+//    void updateSeq();
+//    long getLastSeq();
 
 
 //    // 10분 단위
