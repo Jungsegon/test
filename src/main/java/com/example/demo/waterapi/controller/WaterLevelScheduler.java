@@ -1,7 +1,7 @@
 package com.example.demo.waterapi.controller;
 
 
-import com.example.demo.waterapi.service.WaterLevelService;
+import com.example.demo.waterapi.service.WaterLevelSchedulerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/flood")
 public class WaterLevelScheduler {
 
-    private final WaterLevelService waterLevelService;
+    private final WaterLevelSchedulerService waterLevelSchedulerService;
     private static final String HANGANG_CODE = "1018683";
     private static final String CHEONGDAM_CODE = "1018662";
 
     @Scheduled(cron = "0 * * * * *")  // 매 1분
 //    @Scheduled(cron = "*/30 * * * * *")
     public void insertLatest() {
-        waterLevelService.fetchAndInsertLatest(HANGANG_CODE);
-        waterLevelService.fetchAndInsertLatest(CHEONGDAM_CODE);
+        waterLevelSchedulerService.fetchAndInsertLatest(HANGANG_CODE);
+        waterLevelSchedulerService.fetchAndInsertLatest(CHEONGDAM_CODE);
     }
 
     @Scheduled(cron = "0 0 * * * *")  // 매 1시간
     public void updateIfChanged() {
-        waterLevelService.fetchAndUpdateFullDay(HANGANG_CODE);
-        waterLevelService.fetchAndUpdateFullDay(CHEONGDAM_CODE);
+        waterLevelSchedulerService.fetchAndUpdateFullDay(HANGANG_CODE);
+        waterLevelSchedulerService.fetchAndUpdateFullDay(CHEONGDAM_CODE);
     }
 
     //zzzzzzzzzzzzzzzzzzzzzzzzzz

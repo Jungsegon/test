@@ -41,6 +41,28 @@
         SELECT LAST_INSERT_ID()
     </select>
 
+
+<!--    실시간 수위, 유량 조회    -->
+    <select id="findLatestByWlobscd" parameterType="String" resultType="com.example.demo.waterapi.vo.WaterLevelVo">
+        SELECT *
+        FROM water_level_min
+        WHERE wlobscd = #{wlobscd}
+        ORDER BY ymdhm DESC
+            LIMIT 1
+    </select>
+
+<!--     기간 별 수위 조회   -->
+    <select id="findByPeriod" resultType="com.example.demo.waterapi.vo.WaterLevelVo">
+        SELECT *
+        FROM water_level_min
+        WHERE ymdhm BETWEEN #{startDt} AND #{endDt}
+        <if test="wlobscd != null and wlobscd != ''">
+            AND wlobscd = #{wlobscd}
+        </if>
+        ORDER BY ymdhm DESC
+    </select>
+
+
     <!--    &lt;!&ndash; 한강 10분 단위 &ndash;&gt;-->
 <!--    <insert id="insertOrUpdateWaterhangang" parameterType="com.gbsoft.waterapi.vo.WaterLevelVo">-->
 <!--        INSERT INTO water_hangang_min (-->
