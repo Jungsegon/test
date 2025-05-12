@@ -12,9 +12,9 @@
 
     <insert id="insertWaterLevel" parameterType="com.example.demo.waterapi.vo.WaterLevelVo">
         INSERT INTO water_level_min (
-            wlobscd, obsnm, ymdhm, wl, fw
+            wlobscd, ymdhm, wl, fw
         ) VALUES (
-                     #{wlobscd}, #{obsnm}, #{ymdhm}, #{wl}, #{fw}
+                     #{wlobscd}, #{ymdhm}, #{wl}, #{fw}
                  )
     </insert>
 
@@ -29,7 +29,7 @@
     </update>
 
     <select id="findAll" resultType="com.example.demo.waterapi.vo.WaterLevelVo">
-        SELECT id, wlobscd, obsnm, ymdhm, wl, fw, update_dt
+        SELECT id, wlobscd, ymdhm, wl, fw, update_dt
         FROM water_level_min
     </select>
 

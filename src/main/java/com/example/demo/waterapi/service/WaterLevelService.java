@@ -30,7 +30,7 @@ public class WaterLevelService {
 
     // ✅ 1분마다 호출 - INSERT 전용
     @Transactional
-    public void fetchAndInsertLatest(String wlobscd, String obsnm) {
+    public void fetchAndInsertLatest(String wlobscd) {
         try {
             String url = String.format("http://api.hrfco.go.kr/%s/waterlevel/list/10M/%s.json", SERVICE_KEY, wlobscd);
 
@@ -49,7 +49,6 @@ public class WaterLevelService {
 
             WaterLevelVo vo = WaterLevelVo.builder()
                     .wlobscd(wlobscd)
-                    .obsnm(obsnm)
                     .ymdhm(ymdhm)
                     .wl(wl)
                     .fw(fw)
@@ -69,7 +68,7 @@ public class WaterLevelService {
     // ✅ 1시간마다 호출 - UPDATE 전용
     @Transactional
     public void
-    fetchAndUpdateFullDay(String wlobscd, String obsnm) {
+    fetchAndUpdateFullDay(String wlobscd) {
         try {
             String fromDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "0000";
             String toDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "2359";
