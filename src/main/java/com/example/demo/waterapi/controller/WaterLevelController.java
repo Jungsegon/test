@@ -2,13 +2,13 @@ package com.example.demo.waterapi.controller;
 
 
 import com.example.demo.waterapi.dto.WaterLevelResponse;
+import com.example.demo.waterapi.service.WaterLevelCacheService;
 import com.example.demo.waterapi.service.WaterLevelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ import java.util.List;
 public class WaterLevelController {
 
     private final WaterLevelService waterLevelService;
+    private final WaterLevelCacheService waterLevelCacheService;
 
     @GetMapping("/getLatest")
     public ResponseEntity<?> getLatestWaterLevel(@RequestParam String wlobscd) {
@@ -53,4 +54,31 @@ public class WaterLevelController {
         return ResponseEntity.ok(results);
 
     }
+
+
+
+    @PostMapping("/saveToCacheFromDb")
+    public ResponseEntity<?> saveToCacheFromDb(@RequestParam String wlobscd) {
+        // DB 조회
+        WaterLevelResponse latest = waterLevelService.getLatestWaterLevel(wlobscd);
+        if (latest == null) {
+            return ResponseEntity.badRequest().body("DB 조회 결과 없음");
+        }
+
+        // 캐시 저장
+        waterLevelCacheService.saveToCache(latest);
+        return ResponseEntity.ok("DB에서 조회한 최신 수위 캐시 저장 완료");
+    }
+
+
+    @GetMapping("/getFromCache")
+    public ResponseEntity<?> getFromCache(@RequestParam String wlobscd) {
+        WaterLevelResponse cached = waterLevelCacheService.getFromCache(wlobscd);
+        if (cached == null) {
+            return ResponseEntity.ok("캐시 데이터 없음");
+        }
+        return ResponseEntity.ok(cached);
+    }
+
+
 }
