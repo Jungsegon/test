@@ -67,8 +67,7 @@ public class WaterLevelSchedulerService {
 
     // ✅ 1시간마다 호출 - UPDATE 전용
     @Transactional
-    public void
-    fetchAndUpdateFullDay(String wlobscd) {
+    public void fetchAndUpdateFullDay(String wlobscd) {
         try {
             String fromDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "0000";
             String toDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "2359";

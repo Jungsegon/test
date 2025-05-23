@@ -1,9 +1,11 @@
 package com.example.demo.waterapi.mapper;
 
 
+import com.example.demo.waterapi.dto.WaterLevelStandardResponse;
 import com.example.demo.waterapi.vo.WaterLevelVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
@@ -26,20 +28,6 @@ public interface WaterLevelMapper {
             @Param("wlobscd") String wlobscd
     );
 
-//    void updateSeq();
-//    long getLastSeq();
-
-
-//    // 10분 단위
-//    void insertOrUpdateWaterhangang(WaterLevelVo vo);
-//    void insertOrUpdateWatercheongdam(WaterLevelVo vo);
-
-//    // 1시간 단위
-//    void insertOrUpdateWaterHangangHour(WaterLevelVo vo);
-//    void insertOrUpdateWaterCheongdamHour(WaterLevelVo vo);
-//
-//    // 일 단위
-//    void insertOrUpdateWaterHangangDay(WaterLevelVo vo);
-//    void insertOrUpdateWaterCheongdamDay(WaterLevelVo vo);
-
+    @Select("SELECT WLOBSCD, OBSNM, ATTWL, WRNWL, ALMWL, SRSWL, PFH FROM WLOBS_MNT WHERE WLOBSCD = #{wlobscd}")
+    WaterLevelStandardResponse findStandardByWlobscd(@Param("wlobscd") String wlobscd);
 }
