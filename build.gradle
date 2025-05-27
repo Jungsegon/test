@@ -34,7 +34,8 @@ dependencies {
     implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
-
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.1'
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
