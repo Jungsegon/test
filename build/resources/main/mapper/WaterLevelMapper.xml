@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.waterapi.mapper.WaterLevelMapper">
+
+    <select id="existsWaterLevel" parameterType="com.example.demo.waterapi.vo.WaterLevelVo" resultType="int">
+        SELECT COUNT(1)
+        FROM water_level_min
+        WHERE wlobscd = #{wlobscd}
+          AND ymdhm = #{ymdhm}
+    </select>
+
+    <insert id="insertWaterLevel" parameterType="com.example.demo.waterapi.vo.WaterLevelVo">
+        INSERT INTO water_level_min (
+            wlobscd, ymdhm, wl, fw
+        ) VALUES (
+                     #{wlobscd}, #{ymdhm}, #{wl}, #{fw}
+                 )
+    </insert>
+
+
+    <update id="updateWaterLevel" parameterType="com.example.demo.waterapi.vo.WaterLevelVo">
+        UPDATE water_level_min
+        SET wl = #{wl},
+            fw = #{fw},
+            update_dt = NOW()
+        WHERE wlobscd = #{wlobscd}
+          AND ymdhm = #{ymdhm}
+    </update>
+
+    <select id="findAll" resultType="com.example.demo.waterapi.vo.WaterLevelVo">
+        SELECT id, wlobscd, ymdhm, wl, fw, update_dt
+        FROM water_level_min
+    </select>
+
+    <update id="updateSeq">
+        UPDATE seq_water_level SET seq = LAST_INSERT_ID(seq + 1)
+    </update>
+
+    <select id="getLastSeq" resultType="long">
+        SELECT LAST_INSERT_ID()
+    </select>
+
+
+<!--    실시간 수위, 유량 조회    -->
+    <select id="findLatestByWlobscd" parameterType="String" resultType="com.example.demo.waterapi.vo.WaterLevelVo">
+        SELECT *
+        FROM water_level_min
+        WHERE wlobscd = #{wlobscd}
+        ORDER BY ymdhm DESC
+            LIMIT 1
+    </select>
+
+<!--     기간 별 수위 조회   -->
+    <select id="findByPeriod" resultType="com.example.demo.waterapi.vo.WaterLevelVo">
+        SELECT *
+        FROM water_level_min
+        WHERE ymdhm BETWEEN #{startDt} AND #{endDt}
+        <if test="wlobscd != null and wlobscd != ''">
+            AND wlobscd = #{wlobscd}
+        </if>
+        ORDER BY ymdhm DESC
+    </select>
+
+    
+
+
+</mapper>

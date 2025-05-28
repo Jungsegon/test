@@ -3,11 +3,10 @@ package com.example.demo.waterapi.service;
 
 import com.example.demo.waterapi.mapper.WaterLevelMapper;
 import com.example.demo.waterapi.vo.WaterLevelVo;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
