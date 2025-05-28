@@ -24,20 +24,10 @@ public class WaterLevelCacheService {
         try {
             String json = objectMapper.writeValueAsString(response);
             redisTemplate.opsForValue().set(key, json);
+            log.info("REDIS 캐시 저장 성공: {}", key);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Redis 저장 실패", e);
         }
     }
 
-    public WaterLevelResponse getFromCache(String wlobscd) {
-        String key = String.format(WATER_LEVEL_KEY, wlobscd);
-        String json = redisTemplate.opsForValue().get(key);
-        if (json == null) return null;
-
-        try {
-            return objectMapper.readValue(json, WaterLevelResponse.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Redis 조회 실패", e);
-        }
-    }
 }

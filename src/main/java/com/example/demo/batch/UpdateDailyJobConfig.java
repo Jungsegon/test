@@ -29,8 +29,14 @@ public class UpdateDailyJobConfig {
     public Step updateStep() {
         return stepBuilderFactory.get("updateStep")
                 .tasklet((contribution, chunkContext) -> {
-                    schedulerService.fetchAndUpdateFullDay("1018683");
-                    schedulerService.fetchAndUpdateFullDay("1018662");
+                    try{
+                        schedulerService.fetchAndUpdateFullDay("1018683");
+                        schedulerService.fetchAndUpdateFullDay("1018662");
+                    }catch (Exception e){
+                        throw new RuntimeException("updateStep 실패", e);
+                    }
+
+
                     return RepeatStatus.FINISHED;
                 }).build();
     }

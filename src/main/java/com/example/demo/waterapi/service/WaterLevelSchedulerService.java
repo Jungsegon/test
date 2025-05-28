@@ -3,8 +3,11 @@ package com.example.demo.waterapi.service;
 
 import com.example.demo.waterapi.mapper.WaterLevelMapper;
 import com.example.demo.waterapi.vo.WaterLevelVo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -24,8 +27,9 @@ public class WaterLevelSchedulerService {
 
     private final WaterLevelMapper waterLevelMapper;
     private final RestTemplate restTemplate;
-
+    private final WaterLevelService waterLevelService;
     private static final String SERVICE_KEY = "866442D5-9096-4C0F-AC8E-CB087115B9DF";
+    private final WaterLevelCacheService cacheService;
 
 
     // ✅ 1분마다 호출 - INSERT 전용
@@ -57,6 +61,14 @@ public class WaterLevelSchedulerService {
             if (waterLevelMapper.existsWaterLevel(vo) == 0) {
                 waterLevelMapper.insertWaterLevel(vo);
                 log.info("---------------------------------------------수위 insert 완료---------");
+
+                if(wlobscd.equals("1018683")) {
+                    var h = waterLevelService.getLatestWaterLevel("1018683");
+                    if (h != null) cacheService.saveToCache(h);
+                }else if(wlobscd.equals("1018662")) {
+                    var c = waterLevelService.getLatestWaterLevel("1018662");
+                    if (c != null) cacheService.saveToCache(c);
+                }
             }
 
 

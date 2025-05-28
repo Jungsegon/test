@@ -33,7 +33,6 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.1'
     annotationProcessor 'org.projectlombok:lombok'

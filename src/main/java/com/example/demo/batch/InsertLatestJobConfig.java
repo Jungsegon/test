@@ -1,6 +1,8 @@
 package com.example.demo.batch;
 
+import com.example.demo.waterapi.service.WaterLevelCacheService;
 import com.example.demo.waterapi.service.WaterLevelSchedulerService;
+import com.example.demo.waterapi.service.WaterLevelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -16,6 +18,8 @@ public class InsertLatestJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final WaterLevelSchedulerService schedulerService;
+    private final WaterLevelCacheService cacheService;
+    private final WaterLevelService waterLevelService;
 
     @Bean
     public Job insertLatestJob() {
@@ -28,8 +32,15 @@ public class InsertLatestJobConfig {
     public Step insertLatestStep() {
         return stepBuilderFactory.get("insertLatestStep")
                 .tasklet((contribution, chunkContext) -> {
-                    schedulerService.fetchAndInsertLatest("1018683");
-                    schedulerService.fetchAndInsertLatest("1018662");
+                    try{
+                        schedulerService.fetchAndInsertLatest("1018683");
+                        schedulerService.fetchAndInsertLatest("1018662");
+
+
+                    }catch (Exception e){
+                        throw new RuntimeException("InsertLatestStep 실패", e);
+                    }
+
                     return RepeatStatus.FINISHED;
                 }).build();
     }

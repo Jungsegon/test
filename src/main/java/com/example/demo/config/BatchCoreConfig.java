@@ -1,4 +1,4 @@
-package com.example.demo.batch;
+package com.example.demo.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.ListableJobLocator;

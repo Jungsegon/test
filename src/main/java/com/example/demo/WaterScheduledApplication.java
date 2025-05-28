@@ -10,14 +10,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @MapperScan("com.example.demo.waterapi.mapper")
-public class DemoApplication extends SpringBootServletInitializer {
+public class WaterScheduledApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(DemoApplication.class);
+        return application.sources(WaterScheduledApplication.class);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(WaterScheduledApplication.class, args);
     }
 
 }
